@@ -3,8 +3,6 @@ from random import *
 
 window = Tk()
 
-# add preset difficulty levels?
-
 mineimagedata = "iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAYElEQVQoU52S0Q4AIARF+f+P1lLMhJSH2uoedIWQBwEARtfh4Ra2IBHN3cdMrkl8pQiQBKq1EANEi0PMn/MNVS2F3h6VihFw17oYiy/MCbEPBZW6J/N4mpMVt36Ez55CA37IFw0KsTaYAAAAAElFTkSuQmCC"
 mineimagephoto = PhotoImage(data = mineimagedata)
 window.iconphoto(True, mineimagephoto)
@@ -169,7 +167,7 @@ def minesgenerator(sizet, mines, firstarea):
     global debug
     global selectedmines
     while len(selectedmines) < (mines):
-        newmine = (randrange(0,sizet)) # the use of randrange() instead of randint() is because the array of buttons starts at 0,0 and sizet starts at 1 and range is exclusive of the ceiling
+        newmine = (randrange(0,sizet)) # exclusive of the ceiling
         if newmine not in selectedmines and newmine not in firstarea:
             selectedmines.append(newmine)
             if debug == True:
@@ -213,8 +211,8 @@ def click(pos, mines, x, y, sizex, sizey, sizet, button, buttons, auto):
             clickedbuttons.append(pos)
             if pos in selectedmines:
                 if debug == True:
-                    print("Mine",str(pos),"hit. Loose condition met")
-                loose()
+                    print("Mine",str(pos),"hit. Lose condition met")
+                lose()
             else:
                 button.config(relief = "flat", state = "disabled")
                 if debug == True: # debug
@@ -366,12 +364,12 @@ def grid(sizex, sizey, sizet, minesslider):
     window.pady = 50
     window.grid_propagate(False)
 
-def loose():
+def lose():
     global gameactive
     gameactive == False
     clearwindow()
     disabledevbuttons()
-    wintext = Label(window, text = "YOU LOOSE!", font = ("Arial", 50, "bold")).pack(pady = (50,20))
+    wintext = Label(window, text = "YOU LOSE!", font = ("Arial", 50, "bold")).pack(pady = (50,20))
     playagainbutton = Button(window, text = "Play Again", font = ("Arial", 25), relief = "groove", borderwidth = 2, command = lambda: restart()).pack()
 
 def win():
